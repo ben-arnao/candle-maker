@@ -42,9 +42,6 @@ class TradesContainer:
     def add_candle(self, trades_in_candle):
         self.candles.append(Candle(self.candle_close, trades_in_candle))
 
-    def get_candles(self):
-        return self.candles
-
     def add_dummy(self):
         dummy_candle = copy.deepcopy(self.candles[-1])
         dummy_candle.close_time = self.candle_close
