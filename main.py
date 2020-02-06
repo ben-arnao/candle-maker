@@ -1,3 +1,5 @@
+
+# structure of trades used by this script
 class Trade:
     def __init__(self, time, qty, price):
         self.time = int(time)
