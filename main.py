@@ -1,6 +1,7 @@
 import copy
 import numpy as np
 
+
 # structure of trades used by this script
 class Trade:
     def __init__(self, time, qty, price):
@@ -43,7 +44,7 @@ class TradesContainer:
 
     def get_candles(self):
         return self.candles
-    
+
     def add_dummy(self):
         dummy_candle = copy.deepcopy(self.candles[-1])
         dummy_candle.close_time = self.candle_close
@@ -69,7 +70,7 @@ def make_candles(trades, ms_in_candle):
     for idx, trade in enumerate(trades):
         if tc.timestamp_in_candle_bounds(trade):
             # add for current trades_in_candle
-            trades_in_candle.append(Trade(trade.time, trade.qty, trade.price, trade.id))
+            trades_in_candle.append(Trade(trade.time, trade.qty, trade.price))
         else:
             # create candle and add
             tc.add_candle(trades_in_candle)
@@ -86,5 +87,5 @@ def make_candles(trades, ms_in_candle):
                 tc.move_to_next_candle()
 
             # create new trades_in_candle with curr trade
-            trades_in_candle = [Trade(trade.time, trade.qty, trade.price, trade.id)]
+            trades_in_candle = [Trade(trade.time, trade.qty, trade.price)]
     return tc.get_candles()
