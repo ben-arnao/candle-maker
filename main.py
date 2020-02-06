@@ -47,9 +47,8 @@ def make_candles(trades, ms_in_candle):
             # move to next trades_in_candle
             candle_open, candle_close = next_candle(candle_open, candle_close, ms_in_candle)
 
-            # if trade doesn't fit in next trades_in_candle, keep going
+            # if trade doesn't fit in next consecutive candle (too far in futue), add a dummy candle and then open a new candle
             while not timestamp_in_candle_bounds(trade.time, candle_open, candle_close):
-                print('here')
                 # add dummy candle
                 dummy_candle = copy.deepcopy(candles[-1])
                 dummy_candle.close_time = candle_close
