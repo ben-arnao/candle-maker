@@ -77,23 +77,17 @@ def make_candles(trades, ms_in_candle):
 
     for idx, trade in enumerate(trades):
         if tc.timestamp_in_candle_bounds(trade):
-            # add for current trades_in_candle
+            # add trade to list of trades in current candle
             trades_in_candle.append(Trade(trade.time, trade.qty, trade.price))
         else:
-            # create candle and add
             tc.add_candle(trades_in_candle)
-
-            # move to next trades_in_candle
             tc.move_to_next_candle()
 
             # if trade doesn't fit in next consecutive candle (too far in futue), add a dummy candle and then open a new candle
             while not tc.timestamp_in_candle_bounds(trade):
-                # add dummy candle
                 tc.add_dummy()
-
-                # move to next trades_in_candle
                 tc.move_to_next_candle()
 
-            # create new trades_in_candle with curr trade
+            # create new trades_in_candle list with current trade outside of previous candle bounds
             trades_in_candle = [Trade(trade.time, trade.qty, trade.price)]
     return tc.candles
