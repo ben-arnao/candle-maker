@@ -34,6 +34,11 @@ def make_candles(trades, ms_in_candle):
     candle_open -= candle_open % ms_in_candle
     candle_close = candle_open + ms_in_candle
     candles, trades_in_candle = [], []
+    
+    trades.sort(key=lambda x: x.time)
+    
+    # this method automatically ignores earliest candle as incomplete and does not make a candle until it's seen a trade outside of the candle's range.
+    # Gaurenteeing intregrity of all candles.
 
 
     for idx, trade in enumerate(trades):
