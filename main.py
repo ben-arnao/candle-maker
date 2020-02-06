@@ -30,7 +30,7 @@ def timestamp_in_candle_bounds(trade_timestamp, candle_open_timestamp, candle_cl
         return True
     return False
 
-
+#assumes all time given in ms timestamp format
 def make_candles(trades, ms_in_candle):
     candle_open = trades[0].time
     candle_open -= candle_open % ms_in_candle
