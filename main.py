@@ -30,7 +30,7 @@ def next_candle(candle_open_timestamp, candle_close_timestamp, ms_in_candle):
 
 class TradesContainer:
     def __init__(self, first_trade_ts, ms_in_candle):
-        self.candle_open = first_trade_ts + (first_trade_ts % ms_in_candle)
+        self.candle_open = first_trade_ts + (ms_in_candle - (first_trade_ts % ms_in_candle))
         self.candle_close = self.candle_open + ms_in_candle
         self.ms_in_candle = ms_in_candle
         self.candles = []
@@ -64,6 +64,14 @@ def make_candles(trades, ms_in_candle):
     tc = TradesContainer(trades[0].time, ms_in_candle)
     trades_in_candle = []
 
+    #start at first trade of first full candle
+    starting_ind = None
+    for idx, trade in enumerate(trades):
+        if trade.time >= tc.candle_open:
+            starting_ind = idx
+            break
+    trades = trades[starting_ind:]
+
     # this method automatically ignores earliest candle as incomplete and does not make a candle until it's seen a trade outside of the candle's range.
     # Gaurenteeing intregrity of all candles.
 
@@ -88,4 +96,4 @@ def make_candles(trades, ms_in_candle):
 
             # create new trades_in_candle with curr trade
             trades_in_candle = [Trade(trade.time, trade.qty, trade.price)]
-    return tc.get_candles()
+    return tc.candles
