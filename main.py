@@ -72,7 +72,7 @@ def make_candles(trades, ms_in_candle):
             tc.add_candle(trades_in_candle)
             tc.move_to_next_candle()
 
-            # if trade doesn't fit in next consecutive candle (too far in futue), add a dummy candle and then open a new candle
+            # if trade doesn't fit in next consecutive candle (a candle doesn't have any trades in it), add a dummy candle and then open a new candle
             while not tc.timestamp_in_candle_bounds(trade):
                 tc.add_dummy()
                 tc.move_to_next_candle()
