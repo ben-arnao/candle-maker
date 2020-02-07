@@ -19,12 +19,6 @@ class Candle:
         self.weighted_avg = self.volume / np.sum(qty_arr)
 
 
-def next_candle(candle_open_timestamp, candle_close_timestamp, ms_in_candle):
-    candle_open_timestamp += ms_in_candle
-    candle_close_timestamp += ms_in_candle
-    return candle_open_timestamp, candle_close_timestamp
-
-
 class TradesContainer:
     def __init__(self, first_trade_ts, ms_in_candle):
         self.candle_open = first_trade_ts + (ms_in_candle - (first_trade_ts % ms_in_candle))
