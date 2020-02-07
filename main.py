@@ -67,7 +67,7 @@ def make_candles(trades, ms_in_candle):
     for idx, trade in enumerate(trades):
         if tc.timestamp_in_candle_bounds(trade):
             # add trade to list of trades in current candle
-            trades_in_candle.append(Trade(trade.time, trade.qty, trade.price))
+            trades_in_candle.append(trade)
         else:
             tc.add_candle(trades_in_candle)
             tc.move_to_next_candle()
@@ -78,5 +78,5 @@ def make_candles(trades, ms_in_candle):
                 tc.move_to_next_candle()
 
             # create new trades_in_candle list with current trade outside of previous candle bounds
-            trades_in_candle = [Trade(trade.time, trade.qty, trade.price)]
+            trades_in_candle = [trade]
     return tc.candles
