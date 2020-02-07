@@ -34,6 +34,7 @@ class TradesContainer:
         self.candles.append(Candle(self.candle_close, trades_in_candle))
 
     def add_dummy(self):
+        # use price of last candle and set volume to 0
         dummy_candle = copy.deepcopy(self.candles[-1])
         dummy_candle.close_time = self.candle_close
         dummy_candle.volume = 0
