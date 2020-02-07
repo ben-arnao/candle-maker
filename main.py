@@ -16,7 +16,7 @@ class Candle:
         price_arr = [trade.price for trade in trades_in_candle]
         qty_arr = [trade.qty for trade in trades_in_candle]
         shares = np.sum(qty_arr)
-        volume = np.sum([trade * qty_arr[idx] for idx, trade in enumerate(price_arr)])
+        volume = np.sum(np.multiply(price_arr, qty_arr))
         weighted_avg = volume / shares
         self.volume = volume
         self.weighted_avg = weighted_avg
